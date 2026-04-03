@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import { 
-  Activity, 
-  Heart, 
-  ArrowRight, 
-  RefreshCcw, 
-  Stethoscope, 
+import {
+  Activity,
+  Heart,
+  ArrowRight,
+  RefreshCcw,
+  Stethoscope,
   Info,
   AlertCircle,
   CheckCircle2,
@@ -16,7 +16,7 @@ import {
   Moon
 } from 'lucide-react';
 
-const API_URL = 'http://localhost:8000/predict';
+const API_URL = 'https://heart-disease-prediction-wdvk.onrender.com/predict';
 
 const App = () => {
   const [view, setView] = useState('landing'); // 'landing', 'form', 'result'
@@ -24,7 +24,7 @@ const App = () => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
-  
+
   const [formData, setFormData] = useState({
     Age: 50,
     Sex: 'M',
@@ -82,7 +82,7 @@ const App = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 transition-colors duration-500">
       {/* Theme Toggle */}
-      <button 
+      <button
         onClick={() => setDarkMode(!darkMode)}
         className="fixed top-6 right-6 p-3 rounded-full glass-card hover:scale-110 active:scale-95 transition-all z-50 text-slate-500 dark:text-slate-400 hover:text-primary shadow-lg"
         aria-label="Toggle theme"
@@ -108,7 +108,7 @@ const App = () => {
               HeartGuard AI
             </h1>
             <p className="text-xl text-slate-700 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-medium">
-              Advanced machine learning analysis for personalized heart health assessment. 
+              Advanced machine learning analysis for personalized heart health assessment.
               Get your results in seconds with 87%+ accuracy.
             </p>
             <button
@@ -130,7 +130,7 @@ const App = () => {
             className="w-full max-w-4xl glass-card p-8 md:p-10"
           >
             <div className="flex items-center gap-4 mb-8">
-              <button 
+              <button
                 onClick={() => setView('landing')}
                 className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full text-slate-600 dark:text-slate-400"
               >
@@ -146,10 +146,10 @@ const App = () => {
               {/* Age */}
               <div className="space-y-1">
                 <label className="form-label font-bold">Patient Age</label>
-                <input 
+                <input
                   type="number" name="Age" min="1" max="120"
                   value={formData.Age} onChange={handleChange}
-                  className="glass-input w-full" required 
+                  className="glass-input w-full" required
                 />
               </div>
 
@@ -176,7 +176,7 @@ const App = () => {
               {/* Resting BP */}
               <div className="space-y-1">
                 <label className="form-label font-bold">Resting Blood Pressure</label>
-                <input 
+                <input
                   type="number" name="RestingBP"
                   value={formData.RestingBP} onChange={handleChange}
                   className="glass-input w-full"
@@ -186,7 +186,7 @@ const App = () => {
               {/* Cholesterol */}
               <div className="space-y-1">
                 <label className="form-label font-bold">Cholesterol (mg/dl)</label>
-                <input 
+                <input
                   type="number" name="Cholesterol"
                   value={formData.Cholesterol} onChange={handleChange}
                   className="glass-input w-full"
@@ -198,19 +198,19 @@ const App = () => {
                 <label className="form-label font-bold">Fasting Blood Sugar {'>'} 120</label>
                 <div className="flex gap-4 p-2 text-slate-800 dark:text-slate-300 font-medium">
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input 
-                      type="radio" name="FastingBS" value="0" 
-                      checked={formData.FastingBS === 0} 
-                      onChange={() => setFormData(p => ({...p, FastingBS: 0}))}
+                    <input
+                      type="radio" name="FastingBS" value="0"
+                      checked={formData.FastingBS === 0}
+                      onChange={() => setFormData(p => ({ ...p, FastingBS: 0 }))}
                       className="accent-primary w-4 h-4"
                     />
                     <span>Normal</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input 
-                      type="radio" name="FastinBS" value="1" 
+                    <input
+                      type="radio" name="FastinBS" value="1"
                       checked={formData.FastingBS === 1}
-                      onChange={() => setFormData(p => ({...p, FastingBS: 1}))}
+                      onChange={() => setFormData(p => ({ ...p, FastingBS: 1 }))}
                       className="accent-primary w-4 h-4"
                     />
                     <span>Elevated</span>
@@ -231,10 +231,10 @@ const App = () => {
               {/* Max HR */}
               <div className="space-y-1">
                 <label className="form-label font-bold">Max Heart Rate</label>
-                <input 
-                   type="number" name="MaxHR"
-                   value={formData.MaxHR} onChange={handleChange}
-                   className="glass-input w-full"
+                <input
+                  type="number" name="MaxHR"
+                  value={formData.MaxHR} onChange={handleChange}
+                  className="glass-input w-full"
                 />
               </div>
 
@@ -243,18 +243,18 @@ const App = () => {
                 <label className="form-label font-bold">Exercise Angina</label>
                 <div className="flex gap-4 p-2 text-slate-800 dark:text-slate-300 font-medium">
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input 
-                      type="radio" name="ExerciseAngina" value="N" 
-                      checked={formData.ExerciseAngina === 'N'} 
+                    <input
+                      type="radio" name="ExerciseAngina" value="N"
+                      checked={formData.ExerciseAngina === 'N'}
                       onChange={handleChange}
                       className="accent-primary w-4 h-4"
                     />
                     <span>No</span>
                   </label>
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input 
-                      type="radio" name="ExerciseAngina" value="Y" 
-                      checked={formData.ExerciseAngina === 'Y'} 
+                    <input
+                      type="radio" name="ExerciseAngina" value="Y"
+                      checked={formData.ExerciseAngina === 'Y'}
                       onChange={handleChange}
                       className="accent-primary w-4 h-4"
                     />
@@ -266,7 +266,7 @@ const App = () => {
               {/* Oldpeak */}
               <div className="space-y-1">
                 <label className="form-label font-bold">Oldpeak (ST Depres.)</label>
-                <input 
+                <input
                   type="number" name="Oldpeak" step="0.1"
                   value={formData.Oldpeak} onChange={handleChange}
                   className="glass-input w-full"
@@ -284,9 +284,9 @@ const App = () => {
               </div>
 
               <div className="md:col-span-2 lg:col-span-3 pt-6 flex justify-end gap-4 border-t border-slate-200 dark:border-white/10 mt-4">
-                <button 
-                  type="button" 
-                  onClick={() => setFormData({Age: 50, Sex: 'M', ChestPainType: 'ATA', RestingBP: 120, Cholesterol: 200, FastingBS: 0, RestingECG: 'Normal', MaxHR: 150, ExerciseAngina: 'N', Oldpeak: 0, ST_Slope: 'Flat'})}
+                <button
+                  type="button"
+                  onClick={() => setFormData({ Age: 50, Sex: 'M', ChestPainType: 'ATA', RestingBP: 120, Cholesterol: 200, FastingBS: 0, RestingECG: 'Normal', MaxHR: 150, ExerciseAngina: 'N', Oldpeak: 0, ST_Slope: 'Flat' })}
                   className="btn-secondary"
                 >
                   Reset
@@ -336,7 +336,7 @@ const App = () => {
                   <span className="text-3xl font-bold text-slate-900 dark:text-white">{(result.probability * 100).toFixed(1)}%</span>
                 </div>
                 <div className="h-5 w-full bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden p-1 border border-slate-300 dark:border-white/10 shadow-inner">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${result.probability * 100}%` }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -350,14 +350,14 @@ const App = () => {
                 <div className="space-y-2">
                   <h4 className="font-bold text-slate-900 dark:text-white">AI Analysis Summary</h4>
                   <p className="text-slate-700 dark:text-slate-400 text-sm leading-relaxed font-medium">
-                    Our Random Forest model analysed 15 physiological vectors. {result.prediction === 1 
-                      ? 'Based on the input clinical parameters, the system identifies significant patterns correlating with heart disease. Further clinical validation by a cardiologist is highly recommended.' 
+                    Our Random Forest model analysed 15 physiological vectors. {result.prediction === 1
+                      ? 'Based on the input clinical parameters, the system identifies significant patterns correlating with heart disease. Further clinical validation by a cardiologist is highly recommended.'
                       : 'The analysis shows no strong indicators of heart disease in the provided clinical data. However, preventative lifestyle choices should always be maintained for optimal heart health.'}
                   </p>
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={resetForm}
                 className="btn-secondary w-full py-4 text-center font-bold flex items-center justify-center gap-3 transition-colors shadow-md"
               >
@@ -367,7 +367,7 @@ const App = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       <footer className="mt-12 text-slate-600 dark:text-slate-500 text-xs font-bold text-center pb-8 opacity-80">
         <p>© 2026 HeartGuard AI • Clinical Prediction System</p>
         <p className="mt-1 flex items-center justify-center gap-1">
